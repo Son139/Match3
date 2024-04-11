@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] GameObject GameCompletedCanvas;
     [HideInInspector] public bool isClickable = true;
+    [HideInInspector] public bool isGameCompleted = false;
 
     public static LevelManager instance;
 
-    public GameObject selectionHolder, levelBlock;
+    public GameObject selectionHolder, blocks;
 
     private bool tryCheck;
 
@@ -32,6 +34,21 @@ public class LevelManager : MonoBehaviour
                 StartCoroutine(CheckBlocks());
             }
         }
+
+        if(blocks.transform.childCount == 0)
+        {
+            if(!isGameCompleted)
+            {
+                isGameCompleted = true;
+                StartCoroutine(GameCompleted());
+            }
+        }
+    }
+
+    IEnumerator GameCompleted()
+    {
+        yield return new WaitForSeconds(1f);
+        GameCompletedCanvas.SetActive(true);
     }
 
     public IEnumerator CheckBlocks()
@@ -51,11 +68,11 @@ public class LevelManager : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 selectionHolder.transform.GetChild(0).gameObject.transform.GetChild(0).GetComponent<BlockAnimCtrl>().HideBlock();
-                selectionHolder.transform.GetChild(0).gameObject.transform.parent = levelBlock.transform;
+                selectionHolder.transform.GetChild(0).gameObject.transform.parent = blocks.transform;
             }
         }
         tryCheck = false;
-        isClickable |= true;
+        isClickable = true;
     }
 
     private void OnDestroy()

@@ -15,7 +15,7 @@ public class BaseScene : MonoBehaviour
     protected bool isGameCompleted = false;
     protected bool tryCheck = false;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (instance == null)
         {

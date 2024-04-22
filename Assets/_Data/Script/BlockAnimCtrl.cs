@@ -14,11 +14,11 @@ public class BlockAnimCtrl : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (LevelManager.instance.isClickable)
+        if (BaseScene.instance.isClickable)
         {
             Debug.Log(transform.parent.gameObject.transform.parent);
             //transform.parent.gameObject.transform.parent = LevelManager.instance.selectionHolder.transform;
-            transform.parent.SetParent(LevelManager.instance.selectionHolder.transform);
+            transform.parent.SetParent(BaseScene.instance.selectionHolder.transform);
             blockAnim.SetInteger("BlockShow", 1);
         }
     }
@@ -27,4 +27,5 @@ public class BlockAnimCtrl : MonoBehaviour
     {
         blockAnim.SetInteger("BlockShow", 0);
     }
+    
 }

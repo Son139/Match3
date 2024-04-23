@@ -7,17 +7,19 @@ public class BlockAnimCtrl : MonoBehaviour
 {
     [SerializeField] Animator blockAnim;
 
-    private GridLayoutGroup gridLayoutGroup;
-    private Vector3[] objectPositions;
-    private bool isGridLayoutActive = true;
-
+    public static List<Transform> originalParents = new();
 
     private void OnMouseDown()
     {
         if (BaseScene.instance.isClickable)
         {
-            Debug.Log(transform.parent.gameObject.transform.parent);
-            //transform.parent.gameObject.transform.parent = LevelManager.instance.selectionHolder.transform;
+            if (originalParents.Count == 3)
+            {
+                ResetOriginalParents();
+            }
+            originalParents.Add(transform.parent.gameObject.transform.parent);
+                
+            //transform.parent.gameObject.transform.parent = BaseScene.instance.selectionHolder.transform;
             transform.parent.SetParent(BaseScene.instance.selectionHolder.transform);
             blockAnim.SetInteger("BlockShow", 1);
         }
@@ -27,5 +29,9 @@ public class BlockAnimCtrl : MonoBehaviour
     {
         blockAnim.SetInteger("BlockShow", 0);
     }
-    
+
+    private void ResetOriginalParents()
+    {
+        originalParents.Clear();
+    }
 }

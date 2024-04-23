@@ -19,7 +19,7 @@ public class HandleTiles : MonoBehaviour
     {
         GameObject[] prefabs = Resources.LoadAll<GameObject>(prefabFolderName);
         tilePrefabs.AddRange(prefabs);
-        Debug.Log(prefabs.Length);
+        //Debug.Log(prefabs.Length);
     }
 
     private void Shuffle<T>(List<T> list)
@@ -27,9 +27,7 @@ public class HandleTiles : MonoBehaviour
         for (int i = 0; i < list.Count; i++)
         {
             int randomIndex = Random.Range(i, list.Count);
-            T temp = list[i];
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            (list[randomIndex], list[i]) = (list[i], list[randomIndex]);
         }
     }
     private void LoadGamePlayScene(int numberOfTiles)
@@ -49,8 +47,8 @@ public class HandleTiles : MonoBehaviour
         for (int i = 0; i < numberOfTiles; i++)
         {
             GameObject randomTilePrefab = selectedTiles[i % selectedTiles.Count];
-            Debug.Log(selectedTiles.Count);
-            Debug.Log(i % selectedTiles.Count);
+            //Debug.Log(selectedTiles.Count);
+            //Debug.Log(i % selectedTiles.Count);
             finalTiles.Add(randomTilePrefab);
         }
 
@@ -60,7 +58,7 @@ public class HandleTiles : MonoBehaviour
         {
             GameObject instantiatedTile = Instantiate(prefab, tiles);
             instantiatedTiles.Add(instantiatedTile);
-            Debug.Log(prefab.name);
+            //Debug.Log(prefab.name);
         }
     }
 

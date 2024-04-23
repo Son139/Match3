@@ -759,7 +759,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1019660679}
   - component: {fileID: 1019660680}
-  - component: {fileID: 1019660681}
   m_Layer: 0
   m_Name: Blocks
   m_TagString: Untagged
@@ -811,22 +810,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 3
---- !u!114 &1019660681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1019660677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a36cd6d30ff3b498884ff20606eaa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameCompletedCanvas: {fileID: 711465400}
-  selectionHolder: {fileID: 720388182}
-  blocks: {fileID: 1019660677}
-  isClickable: 1
 --- !u!1 &1050191777
 GameObject:
   m_ObjectHideFlags: 0

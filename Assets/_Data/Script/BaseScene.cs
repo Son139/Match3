@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,10 +21,6 @@ public class BaseScene : MonoBehaviour
         {
             instance = this;
         }
-    }
-    protected virtual void Start()
-    {
-        
     }
 
     protected virtual void Update()
@@ -60,10 +56,9 @@ public class BaseScene : MonoBehaviour
 
     public IEnumerator CheckBlocksCoroutine()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.2f);
         if (AreBlocksMatching())
         {
-            Debug.Log("3 Match");
             DestroySelectionBlocks();
         }
         else
@@ -76,8 +71,17 @@ public class BaseScene : MonoBehaviour
 
     protected virtual bool AreBlocksMatching()
     {
-        return selectionHolder.transform.GetChild(0).gameObject.tag == selectionHolder.transform.GetChild(1).gameObject.tag &&
-               selectionHolder.transform.GetChild(0).gameObject.tag == selectionHolder.transform.GetChild(2).gameObject.tag;
+        if (selectionHolder.transform.childCount == 0) return false;
+        string firstTag = selectionHolder.transform.GetChild(0).gameObject.tag;
+
+        for (int i = 1; i < 3; i++)
+        {
+            if (selectionHolder.transform.GetChild(i).gameObject.tag != firstTag)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected virtual void DestroySelectionBlocks()
@@ -90,11 +94,14 @@ public class BaseScene : MonoBehaviour
 
     protected virtual void MoveSelectionBlocksToBlocks()
     {
+        List<Transform> parentList = new(BlockAnimCtrl.originalParents);
+
         for (int i = 0; i < 3; i++)
         {
+            if (selectionHolder.transform.childCount == 0) return;
             Transform blockTransform = selectionHolder.transform.GetChild(0);
             blockTransform.GetChild(0).GetComponent<BlockAnimCtrl>().HideBlock();
-            blockTransform.parent = blocks.transform;
+            blockTransform.parent = parentList[i].transform;
         }
     }
 

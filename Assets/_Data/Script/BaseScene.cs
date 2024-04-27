@@ -7,9 +7,9 @@ public class BaseScene : MonoBehaviour
 {
     public static BaseScene instance;
 
-    [SerializeField] protected GameObject gameCompletedCanvas;
+    [SerializeField] public GameObject gameCompletedDialog;
     [SerializeField] public GameObject selectionHolder;
-    [SerializeField] public GameObject blocks;
+    [SerializeField] GameObject tiles;
 
     public bool isClickable = true;
     protected bool isGameCompleted = false;
@@ -41,7 +41,7 @@ public class BaseScene : MonoBehaviour
 
     protected virtual void CheckBlocks()
     {
-        if (blocks.transform.childCount == 0 && !isGameCompleted)
+        if (tiles.transform.childCount == 0 && !isGameCompleted)
         {
             isGameCompleted = true;
             StartCoroutine(GameCompletedCoroutine());
@@ -51,7 +51,7 @@ public class BaseScene : MonoBehaviour
     IEnumerator GameCompletedCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        gameCompletedCanvas.SetActive(true);
+        gameCompletedDialog.SetActive(true);
     }
 
     public IEnumerator CheckBlocksCoroutine()

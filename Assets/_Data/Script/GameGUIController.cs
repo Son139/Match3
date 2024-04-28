@@ -12,9 +12,16 @@ public class GameGUIController : MonoBehaviour
 
     public Dialog CurDialog { get => curdialog; set => curdialog = value; }
 
+    public static bool isPause = false;
+
     public void PauseBtnHandle()
     {
         Time.timeScale = 0;
+
+        AudioManager.Instance.PauseMusic();
+
+        isPause = true; 
+
         if (pauseGameDialog)
         {
             pauseGameDialog.ShowDialog(true);
@@ -34,6 +41,8 @@ public class GameGUIController : MonoBehaviour
     {
         Time.timeScale = 1;
 
+        AudioManager.Instance.RestartMusic();
+
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
     }
@@ -42,12 +51,15 @@ public class GameGUIController : MonoBehaviour
     {
         Time.timeScale = 1;
 
-        if(curdialog) curdialog.ShowDialog(false);
+        AudioManager.Instance.UnPauseMusic();
+
+        isPause = false;
+
+        if (curdialog) curdialog.ShowDialog(false);
     }
 
     public void SettingVolume()
     {
         Time.timeScale = 0;
-
     }
 }

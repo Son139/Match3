@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class BaseScene : MonoBehaviour
+public class GameScene : MonoBehaviour
 {
-    public static BaseScene instance;
+    public static GameScene instance;
 
     [SerializeField] public GameObject gameCompletedDialog;
     [SerializeField] public GameObject selectionHolder;
@@ -15,7 +14,7 @@ public class BaseScene : MonoBehaviour
     protected bool isGameCompleted = false;
     protected bool tryCheck = false;
 
-    protected virtual void Awake()
+    protected void Awake()
     {
         if (instance == null)
         {
@@ -23,13 +22,13 @@ public class BaseScene : MonoBehaviour
         }
     }
 
-    protected virtual void Update()
+    protected void Update()
     {
         CheckSelection();
         CheckBlocks();
     }
 
-    protected virtual void CheckSelection()
+    protected void CheckSelection()
     {
         if (selectionHolder.transform.childCount == 3 && !tryCheck)
         {
@@ -39,7 +38,7 @@ public class BaseScene : MonoBehaviour
         }
     }
 
-    protected virtual void CheckBlocks()
+    protected void CheckBlocks()
     {
         if (tiles.transform.childCount == 0 && !isGameCompleted)
         {
@@ -59,6 +58,8 @@ public class BaseScene : MonoBehaviour
         yield return new WaitForSeconds(1.2f);
         if (AreBlocksMatching())
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.match3Tiles);
+
             DestroySelectionBlocks();
         }
         else
@@ -69,7 +70,7 @@ public class BaseScene : MonoBehaviour
         isClickable = true;
     }
 
-    protected virtual bool AreBlocksMatching()
+    protected bool AreBlocksMatching()
     {
         if (selectionHolder.transform.childCount == 0) return false;
         string firstTag = selectionHolder.transform.GetChild(0).gameObject.tag;
@@ -84,7 +85,7 @@ public class BaseScene : MonoBehaviour
         return true;
     }
 
-    protected virtual void DestroySelectionBlocks()
+    protected void DestroySelectionBlocks()
     {
         for (int i = 0; i < selectionHolder.transform.childCount; i++)
         {
@@ -92,7 +93,7 @@ public class BaseScene : MonoBehaviour
         }
     }
 
-    protected virtual void MoveSelectionBlocksToBlocks()
+    protected void MoveSelectionBlocksToBlocks()
     {
         List<Transform> parentList = new(BlockAnimCtrl.originalParents);
 

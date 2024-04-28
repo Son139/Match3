@@ -569,6 +569,7 @@ GameObject:
   - component: {fileID: 517754978}
   - component: {fileID: 517754977}
   - component: {fileID: 517754976}
+  - component: {fileID: 517754979}
   m_Layer: 5
   m_Name: 12TileMode
   m_TagString: Untagged
@@ -653,18 +654,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputHandle, Assembly-CSharp
-        m_MethodName: AddNameToList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &517754977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +692,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517754974}
   m_CullTransparentMesh: 1
+--- !u!114 &517754979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517754974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33d09a55a3977c40bcaa9b688316eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &780154688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0982ad65dfb7d94897c39c565e3d053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayTime: 1
 --- !u!1 &1079423529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1311,7 @@ GameObject:
   - component: {fileID: 1264756423}
   - component: {fileID: 1264756422}
   - component: {fileID: 1264756421}
+  - component: {fileID: 1264756424}
   m_Layer: 5
   m_Name: 15TileMode
   m_TagString: Untagged
@@ -1393,18 +1396,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputHandle, Assembly-CSharp
-        m_MethodName: AddNameToList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1264756422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1443,6 +1434,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264756419}
   m_CullTransparentMesh: 1
+--- !u!114 &1264756424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264756419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33d09a55a3977c40bcaa9b688316eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1323663352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,6 +2019,7 @@ GameObject:
   - component: {fileID: 1945420618}
   - component: {fileID: 1945420617}
   - component: {fileID: 1945420616}
+  - component: {fileID: 1945420619}
   m_Layer: 5
   m_Name: 9TileMode
   m_TagString: Untagged
@@ -2100,18 +2104,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InputHandle, Assembly-CSharp
-        m_MethodName: AddNameToList
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1945420617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,6 +2142,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945420614}
   m_CullTransparentMesh: 1
+--- !u!114 &1945420619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945420614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33d09a55a3977c40bcaa9b688316eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1989964739
 GameObject:
   m_ObjectHideFlags: 0

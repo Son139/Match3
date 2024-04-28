@@ -11,18 +11,33 @@ public class BlockAnimCtrl : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (BaseScene.instance.isClickable)
+        if (CanBlockBeClicked())
         {
-            if (originalParents.Count == 3)
-            {
-                ResetOriginalParents();
-            }
-            originalParents.Add(transform.parent.gameObject.transform.parent);
-                
-            //transform.parent.gameObject.transform.parent = BaseScene.instance.selectionHolder.transform;
-            transform.parent.SetParent(BaseScene.instance.selectionHolder.transform);
-            blockAnim.SetInteger("BlockShow", 1);
+            PlayBlockSound();
+            MoveBlock();
         }
+    }
+
+    private bool CanBlockBeClicked()
+    {
+        return GameGUIController.isPause && GameScene.instance.isClickable;
+    }
+
+    private void PlayBlockSound()
+    {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.checkTile);
+    }
+
+    private void MoveBlock()
+    {
+        if (originalParents.Count == 3)
+        {
+            ResetOriginalParents();
+        }
+        originalParents.Add(transform.parent.gameObject.transform.parent);
+
+        transform.parent.SetParent(GameScene.instance.selectionHolder.transform);
+        blockAnim.SetInteger("BlockShow", 1);
     }
 
     public void HideBlock()

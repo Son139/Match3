@@ -24,23 +24,29 @@ public class ModeGameSetting : MonoBehaviour
     public void LoadMode9Tile()
     {
         numberOfTiles = 9;
-        SceneManager.LoadScene("GamePlay");
+        StartCoroutine(DelayedLoadScene("GamePlay"));
     }
 
     public void LoadMode12Tile()
     {
         numberOfTiles = 12;
-        SceneManager.LoadScene("GamePlay");
+        StartCoroutine(DelayedLoadScene("GamePlay"));
     }
 
     public void LoadMode15Tile()
     {
         numberOfTiles = 15;
-        SceneManager.LoadScene("GamePlay");
+        StartCoroutine(DelayedLoadScene("GamePlay"));
     }
 
     public int GetNumberOfTiles()
     {
         return numberOfTiles;
+    }
+
+    IEnumerator DelayedLoadScene(string sceneName)
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneName);
     }
 }

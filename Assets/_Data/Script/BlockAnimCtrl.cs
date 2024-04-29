@@ -20,7 +20,7 @@ public class BlockAnimCtrl : MonoBehaviour
 
     private bool CanBlockBeClicked()
     {
-        return GameGUIController.isPause && GameScene.instance.isClickable;
+        return GameScene.instance.isClickable;
     }
 
     private void PlayBlockSound()

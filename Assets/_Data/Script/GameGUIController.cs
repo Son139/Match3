@@ -12,16 +12,13 @@ public class GameGUIController : MonoBehaviour
 
     public Dialog CurDialog { get => curdialog; set => curdialog = value; }
 
-    public static bool isPause = false;
-
     public void PauseBtnHandle()
     {
         Time.timeScale = 0;
 
         AudioManager.Instance.PauseMusic();
 
-        isPause = true; 
-
+        GameScene.instance.isClickable = false;
         if (pauseGameDialog)
         {
             pauseGameDialog.ShowDialog(true);
@@ -53,7 +50,7 @@ public class GameGUIController : MonoBehaviour
 
         AudioManager.Instance.UnPauseMusic();
 
-        isPause = false;
+        GameScene.instance.isClickable = true;
 
         if (curdialog) curdialog.ShowDialog(false);
     }

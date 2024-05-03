@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4764efcc573abdf4b931645d16ef7b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameInput: {fileID: 780154690}
   mode9Tile: {fileID: 1945420614}
   mode12Tile: {fileID: 517754974}
   mode15Tile: {fileID: 1264756419}

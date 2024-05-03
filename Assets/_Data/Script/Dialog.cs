@@ -18,5 +18,4 @@ public class Dialog : MonoBehaviour
         if (titleText) titleText.text = title;
         if(contentText) contentText.text = content;
     }
-
 }

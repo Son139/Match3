@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip checkTile;
     public AudioClip match3Tiles;
     public AudioClip buttonClick;
+    public AudioClip completedModeGame;
 
     private void Awake()
     {

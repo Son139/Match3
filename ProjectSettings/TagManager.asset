@@ -12,6 +12,9 @@ TagManager:
   - Squirtle
   - Ivysaur
   - Whimsicott
+  - 9
+  - 12
+  - 15
   layers:
   - Default
   - TransparentFX

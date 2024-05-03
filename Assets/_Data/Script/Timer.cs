@@ -31,24 +31,47 @@ public class Timer : MonoBehaviour
     private void UpdateTimer()
     {
         elapsedTime += Time.deltaTime;
-        int minutes = Mathf.FloorToInt(elapsedTime / 60);
-        int seconds = Mathf.FloorToInt(elapsedTime % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        UpdateUITimer(elapsedTime);
+    }
+
+    private void UpdateUITimer(float timeInSeconds)
+    {
+        int minutes = Mathf.FloorToInt(timeInSeconds / 60);
+        int seconds = Mathf.FloorToInt(timeInSeconds % 60);
+        timerText.text = FormatTime(minutes, seconds);
+    }
+
+    private string FormatTime(int minutes, int seconds)
+    {
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void ResetTimer()
     {
         elapsedTime = 0f;
-        isTimerRunning = true; 
+        UpdateUITimer(elapsedTime);
+        isTimerRunning = true;
     }
 
     public void StopTimer()
     {
-        isTimerRunning = false; 
+        isTimerRunning = false;
     }
 
     public void ResumeTimer()
     {
         isTimerRunning = true; 
+    }
+
+    public float GetTimeWhenEndGame()
+    {
+        return elapsedTime;
+    }
+
+    public string GetFormattedTime(float timeInSeconds)
+    {
+        int minutes = Mathf.FloorToInt(timeInSeconds / 60);
+        int seconds = Mathf.FloorToInt(timeInSeconds % 60);
+        return FormatTime(minutes, seconds);
     }
 }

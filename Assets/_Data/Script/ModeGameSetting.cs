@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ModeGameSetting : MonoBehaviour
 {
     private static ModeGameSetting instance;
     public static ModeGameSetting Instance { get => instance; }
 
+    [SerializeField] InputField nameInput;
     [SerializeField] GameObject mode9Tile;
     [SerializeField] GameObject mode12Tile;
     [SerializeField] GameObject mode15Tile;
@@ -15,7 +17,8 @@ public class ModeGameSetting : MonoBehaviour
     private int numberOfTiles;
     private void Awake()
     {
-        if(instance == null)
+        nameInput.text = "";
+        if (instance == null)
         {
             instance = this;
         }
@@ -47,6 +50,8 @@ public class ModeGameSetting : MonoBehaviour
     IEnumerator DelayedLoadScene(string sceneName)
     {
         yield return new WaitForSeconds(1);
+        PlayerPrefs.SetString("playerName", nameInput.text);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(sceneName);
     }
 }

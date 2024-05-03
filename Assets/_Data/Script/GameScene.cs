@@ -9,12 +9,18 @@ public class GameScene : MonoBehaviour
     [SerializeField] public GameObject gameCompletedDialog;
     [SerializeField] public GameObject selectionHolder;
     [SerializeField] GameObject tiles;
+    [SerializeField] string filename;
 
     public bool isClickable = true;
-    protected bool isGameCompleted = false;
-    protected bool tryCheck = false;
+    private bool isGameCompleted = false;
+    private bool tryCheck = false;
+    private int countDestroy;
+    private float timePlay;
 
-    protected void Awake()
+    List<PlayerData> playerDataList = new();
+    private Dictionary<int, PlayerData> bestPlayersByMode = new();
+
+    private void Awake()
     {
         if (instance == null)
         {
@@ -22,13 +28,30 @@ public class GameScene : MonoBehaviour
         }
     }
 
-    protected void Update()
+    private void Start()
     {
-        CheckSelection();
-        CheckBlocks();
+        countDestroy = 0;
+        playerDataList = FileHandler.ReadListFromJSON<PlayerData>(filename);
     }
 
-    protected void CheckSelection()
+    private void Update()
+    {
+        CheckSelection();
+        CheckTiles();
+    }
+
+    private void LoadBestPlayersData()
+    {
+        foreach (PlayerData playerData in playerDataList)
+        {
+            if (!bestPlayersByMode.ContainsKey(playerData.modeGame) )
+            {
+                bestPlayersByMode[playerData.modeGame] = playerData;
+            }
+        }
+    }
+
+    private void CheckSelection()
     {
         if (selectionHolder.transform.childCount == 3 && !tryCheck)
         {
@@ -38,28 +61,12 @@ public class GameScene : MonoBehaviour
         }
     }
 
-    protected void CheckBlocks()
-    {
-        if (tiles.transform.childCount == 0 && !isGameCompleted)
-        {
-            isGameCompleted = true;
-            StartCoroutine(GameCompletedCoroutine());
-        }
-    }
-
-    IEnumerator GameCompletedCoroutine()
-    {
-        yield return new WaitForSeconds(1f);
-        gameCompletedDialog.SetActive(true);
-    }
-
-    public IEnumerator CheckBlocksCoroutine()
+    IEnumerator CheckBlocksCoroutine()
     {
         yield return new WaitForSeconds(1.2f);
         if (AreBlocksMatching())
         {
             AudioManager.Instance.PlaySFX(AudioManager.Instance.match3Tiles);
-
             DestroySelectionBlocks();
         }
         else
@@ -70,7 +77,7 @@ public class GameScene : MonoBehaviour
         isClickable = true;
     }
 
-    protected bool AreBlocksMatching()
+    private bool AreBlocksMatching()
     {
         if (selectionHolder.transform.childCount == 0) return false;
         string firstTag = selectionHolder.transform.GetChild(0).gameObject.tag;
@@ -85,15 +92,60 @@ public class GameScene : MonoBehaviour
         return true;
     }
 
-    protected void DestroySelectionBlocks()
+    private void CheckTiles()
+    {
+        if (countDestroy == ModeGameSetting.Instance.GetNumberOfTiles() && !isGameCompleted)
+        {
+            isGameCompleted = true;
+            StartCoroutine(GameCompletedCoroutine());
+        }
+    }
+
+    public void SaveDataPlayer()
+    {
+        int modeGame = ModeGameSetting.Instance.GetNumberOfTiles();
+        string playerName = PlayerPrefs.GetString("playerName");
+        float curPlayerTime = Timer.Instance.GetTimeWhenEndGame();
+
+        float shortestTime = float.MaxValue;
+        foreach( var entry in playerDataList )
+        {
+            if(entry.modeGame == modeGame && entry.timePlay < shortestTime)
+            {
+                shortestTime = entry.timePlay;  
+            }
+        }
+
+        playerDataList.RemoveAll(entry => entry.modeGame == modeGame && entry.timePlay > curPlayerTime);
+
+        if (curPlayerTime <= shortestTime)
+        {
+            playerDataList.Add(new PlayerData(playerName, curPlayerTime, modeGame));
+        }
+        FileHandler.SaveToJSON<PlayerData>(playerDataList, filename);
+
+    }
+
+    IEnumerator GameCompletedCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Timer.Instance.StopTimer();
+        SaveDataPlayer();
+        LoadBestPlayersData();
+        DisplayBestPlayer.instance.DisplayBestPlayersInfo(bestPlayersByMode);
+        gameCompletedDialog.SetActive(true);
+    }
+
+    private void DestroySelectionBlocks()
     {
         for (int i = 0; i < selectionHolder.transform.childCount; i++)
         {
             Destroy(selectionHolder.transform.GetChild(i).gameObject);
         }
+        countDestroy += 3;
     }
 
-    protected void MoveSelectionBlocksToBlocks()
+    private void MoveSelectionBlocksToBlocks()
     {
         List<Transform> parentList = new(BlockAnimCtrl.originalParents);
 
